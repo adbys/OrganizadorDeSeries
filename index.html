@@ -57,8 +57,12 @@
           }
         };
 
-        $scope.printe = function () {
-          console.log($scope.profile);
+        $scope.salvarInformacoes = function (serie, episodio, classificacao) {
+          console.log("salvar");
+          serie.classificacao = classificacao;
+          serie.episodio = classificacao;
+          delete $scope.episodio;
+          delete $scope.classificacao;
         };
 
         var getFullInformation = function(serie) {
@@ -148,6 +152,13 @@
        margin: 10px;
      }
 
+     .bigImage {
+       width: auto;
+       height: auto;
+       max-width: 250px;
+       max-width: 300px;
+     }
+
 
     </style>
   </head>
@@ -211,7 +222,7 @@
                     <img class="minIcon" ng-src="trash.png"/>
                   </button>
                   <button data-toggle="modal" ng-click="printe()" data-target="#informacaoSerie{{$index}}">
-                    <img class="minIcon" ng-src="more.png"/>
+                    <img class="bigImage" class="minIcon" ng-src="more.png"/>
                   </button>
                 </div>
               </div>
@@ -237,16 +248,23 @@
                         <div class="col-sm-4"><b>Sinopse:</b> {{serie.Plot}}</div>
                         <div class="col-sm-4"><b>Classificação:</b> {{serie.Rated}}</div>
                         <div class="col-sm-4"><b>Classificação IMDB:</b> {{serie.imdbRating}}</div>
-
+                        <div class="col-sm-4"><b>Minha classificação:</b> {{serie.classificacao}}</div>
+                        <div class="col-sm-4"><b>Útimo episódio:</b> {{serie.episodio}}</div>
                       </div>
 
-
-
-
+                      <div>
+                        <b>Avaliação:</b>
+                        <input ng-model="classificacao" placeholder="0 - 10"/></input>
+                      </div>
+                      <div>
+                        <b>Último episódio assistido:</b>
+                        <input ng-model="episodio" placeholder="S01E01"/></input>
+                      </div>
 
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary" ng-click="salvarInformacoes(serie, episodio, classificacao)">Salvar</button>
                     </div>
                   </div>
 
@@ -275,19 +293,10 @@
                   <button data-toggle="tooltip" data-placement="top" title="Adicionar ao perfil" ng-click="adicionarProfile(serie)">
                     <img class="minIcon" ng-src="profile.png"/>
                   </button>
-                  <button data-toggle="tooltip" data-placement="top" title="Adicionar a Watch List" ng-click="adicionarWatch(serie)">
-                    <img class="minIcon" ng-src="monitor.png" data-placement="top"/>
-                  </button>
                 </div>
               </div>
             </div>
           </div>
-
-
-          <div id="informacoesSerie">
-            teste
-          </div>
-
 
 
 
@@ -299,31 +308,5 @@
 
 
     </div>
-
-
-<!--    <div ng-include="'header.html'"></div>
-    <div class="jumbotron">
-
-     <hr/>
-
-      <table class="table table-striped">
-        <tr>
-          <th></th>
-          <th></th>
-        </tr>
-
-        <tr ng-repeat="serie in series">
-          <td>
-          <button><img class="minIcon" ng-src="monitor.png"</button>
-              <img  ng-src="{{serie.Poster}}">
-              <p {{serie.Title}}></p>
-          </td>
-          <td>
-          </td>
-          <button ng-click="adicionarProfile(serie)"><img class="minIcon" ng-src="profile.png"</button>
-        </tr>
-      </table>
-      <div ng-include="'footer.html'"></div>
-  </div>-->
   </body>
 </html>
