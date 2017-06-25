@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en" ng-app="organizadorDeSeries">
+  <head>
+    <meta charset="utf-8">
+    <title>Organizador de séries</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="lib/angular/angular.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script>
+      angular.module("organizadorDeSeries", []);
+      angular.module("organizadorDeSeries").controller("organizadorDeSeriesCtrl", function ($scope, $http){
+
+        $scope.series = [];
+        $scope.watchList = [];
+        $scope.profile = [];
+
+
+        $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+
+        $scope.buscarSerie = function (serie) {
+          var str = serie.replace(" ", "%20");
+          var url = "?s=".concat(str).concat("&apikey=93330d3c");
+          delete $scope.serie;
+          console.log(url);
+          carregarFilmes(url);
+        };
+
+        $scope.adicionarProfile = function (serie) {
+          let position = $scope.profile.indexOf(serie);
+          console.log(position);
+          if (position == -1) {
+            console.log("ädd");
+            $scope.profile.push(angular.copy(serie));
+            console.log("Perfil");
+            console.log($scope.profile);
+          } else {
+            alert(serie.Title + " já faz parte do seu perfil");
+            console.log("existe");
+          }
+        };
+
+        $scope.adicionarWatch = function (serie) {
+          let position = $scope.watchList.indexOf(serie);
+          $scope.watchList.push(angular.copy(serie));
+          console.log("watchList")
+          console.log($scope.watchList);
+        };
+
+        $scope.excluirProfile = function (serie) {
+          var excluir = confirm("Deseja excluir " + serie.Title + " do seu perfil?");
+          if (excluir) {
+            let position = $scope.profile.indexOf(serie);
+            $scope.profile.splice(position, 1);
+          }
+        };
+
+        var carregarFilmes = function (url){
+          var completeUrl = "https://omdbapi.com/".concat(url);
+          $http.get(completeUrl).success( function (data) {
+            $scope.series = data.Search;
+            console.log($scope.series);
+
+          }).error(function (data) {
+            console.log("erro");
+            console.log(data);
+          });
+
+        };
+
+      });
+
+    </script>
+    <style>
+      img {
+        width: auto;
+        height: auto;
+        max-width: 200px;
+        max-width: 250px;
+      }
+      {
+       padding: 0%;
+       margin: 0%;
+     }
+
+     .container {
+       width: 100%;
+     }
+
+     .gallery {
+       margin-top: 2%;
+       text-align: left;
+       display: inline-block;
+       position: relative;
+     }
+     .imgContainer {
+       margin-bottom: 20px;
+       margin-left: 20px;
+       margin-right: 20px;
+       margin-top: 0px;
+       display: inline-block;
+       position: relative;
+       text-align: center;
+     /*---------------------------------------------------------*/
+       opacity: 1;
+       width: 100%;
+       height: auto;
+       transition: .5s ease;
+       backface-visibility: hidden;
+     }
+
+     .middle {
+       transition: .5s ease;
+       opacity: 0;
+       position: absolute;
+       top: 50%;
+       left: 50%;
+       transform: translate(-50%, -50%);
+       -ms-transform: translate(-50%, -50%)
+     }
+
+     .gallery:hover .image {
+       opacity: 0.3;
+     }
+
+     .gallery:hover .middle {
+       opacity: 1;
+     }
+
+     .text {
+       background-color: #4CAF50;
+       color: white;
+       font-size: 16px;
+       padding: 16px 32px;
+     }
+     /*---------------------------------------------------------*/
+     .serie-poster{
+       margin: 10px;
+     }
+
+    </style>
+  </head>
+  <body class="belowNavBar" ng-controller="organizadorDeSeriesCtrl">
+
+    <div class="container">
+
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">Organizador de Série</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#profile" data-toggle="tab">Profile</a></li>
+            <li><a href="#watchList" data-toggle="tab">Watch List</a></li>
+            <li><a href="#buscar" data-toggle="tab">Buscar</a></li>
+          </ul>
+
+      </nav>
+
+      <div class="tab-content">
+        <div id="buscar" class="tab-pane">
+          <form class="navbar-form navbar-left">
+            <div class="form-group">
+              <div class="wraper">
+                <input ng-model="serie" type="text" placeholder="Série..."></input>
+                <button id="buscarSerie" ng-click="buscarSerie(serie)" class="btn btn-primary">Pesquisar</button>
+              </div>
+
+            </div>
+         </form>
+          <div class="imgContainer">
+          <div class="gallery" ng-repeat="serie in series">
+            <img class="serie-poster" src="{{serie.Poster}}"> <!--imagem da serie aparecendo-->
+            <div class="middle">
+              <div class="text">{{serie.Title}}</div>
+                <div class="wrapper">
+                  <button data-toggle="tooltip" data-placement="top" title="Adicionar ao perfil" ng-click="adicionarProfile(serie)">
+                    <img class="minIcon" ng-src="profile.png"/>
+                  </button>
+                  <button data-toggle="tooltip" data-placement="top" title="Adicionar a Watch List" ng-click="adicionarWatch(serie)">
+                    <img class="minIcon" ng-src="monitor.png" data-placement="top"/>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="profile" class="tab-pane in active">
+
+          <div class="imgContainer">
+          <div class="gallery" ng-repeat="serie in profile">
+            <img class="serie-poster" src="{{serie.Poster}}"> <!--imagem da serie aparecendo-->
+            <div class="middle">
+              <div class="text">{{serie.Title}}</div>
+                <div class="wrapper">
+                  <button data-toggle="tooltip" data-placement="top" title="Excluir do perfil" ng-click="excluirProfile(serie)">
+                    <img class="minIcon" ng-src="trash.png"/>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+
+
+
+        <div id="watchList" class="tab-pane">
+          <div class="imgContainer">
+          <div class="gallery" ng-repeat="serie in watchList">
+            <img class="serie-poster" src="{{serie.Poster}}"> <!--imagem da serie aparecendo-->
+            <div class="middle">
+              <div class="text">{{serie.Title}}</div>
+                <div class="wrapper">
+                  <button data-toggle="tooltip" data-placement="top" title="Adicionar ao perfil" ng-click="adicionarProfile(serie)">
+                    <img class="minIcon" ng-src="profile.png"/>
+                  </button>
+                  <button data-toggle="tooltip" data-placement="top" title="Adicionar a Watch List" ng-click="adicionarWatch(serie)">
+                    <img class="minIcon" ng-src="monitor.png" data-placement="top"/>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+        </div>
+
+      </div>
+
+
+
+    </div>
+
+
+<!--    <div ng-include="'header.html'"></div>
+    <div class="jumbotron">
+
+     <hr/>
+
+      <table class="table table-striped">
+        <tr>
+          <th></th>
+          <th></th>
+        </tr>
+
+        <tr ng-repeat="serie in series">
+          <td>
+          <button><img class="minIcon" ng-src="monitor.png"</button>
+              <img  ng-src="{{serie.Poster}}">
+              <p {{serie.Title}}></p>
+          </td>
+          <td>
+          </td>
+          <button ng-click="adicionarProfile(serie)"><img class="minIcon" ng-src="profile.png"</button>
+        </tr>
+      </table>
+      <div ng-include="'footer.html'"></div>
+  </div>-->
+  </body>
+</html>
