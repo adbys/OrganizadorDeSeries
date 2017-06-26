@@ -63,7 +63,7 @@
         $scope.salvarInformacoes = function (serie, episodio, classificacao) {
           console.log("salvar");
           serie.classificacao = classificacao;
-          serie.episodio = classificacao;
+          serie.episodio = episodio;
           delete $scope.episodio;
           delete $scope.classificacao;
         };
