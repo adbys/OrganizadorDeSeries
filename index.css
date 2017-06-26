@@ -37,6 +37,11 @@ img {
     backface-visibility: hidden;
 }
 
+.searchBar {
+  width: 400px;
+}
+
+
 .middle {
     transition: .5s ease;
     opacity: 0;

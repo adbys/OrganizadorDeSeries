@@ -23,26 +23,28 @@
             <a class="navbar-brand" href="#">Organizador de Série</a>
           </div>
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#profile" data-toggle="tab">Profile</a></li>
-            <li><a href="#watchList" data-toggle="tab">Watch List</a></li>
-            <li><a href="#buscar" data-toggle="tab">Buscar</a></li>
+            <li ng-click="hideSearchBar()" class="active"><a href="#profile" data-toggle="tab">Profile</a></li>
+            <li ng-click="hideSearchBar()"><a href="#watchList" data-toggle="tab">Watch List</a></li>
+            <li ng-click="showSearchBar()"><a href="#buscar" data-toggle="tab">Buscar</a></li>
           </ul>
+          <ul ng-show="searchBar" class="nav navbar-nav navbar-left"">
+              <form class="navbar-form ">
+                <div class="form-group">
+                  <div>
+                    <input class="searchBar" ng-model="serie" type="text" placeholder="Série..."></input>
+                    <button ng-click="buscarSerie(serie)">
+                        <img class="minIcon" ng-src="img/search.png" data-placement="top"/>
+                    </button>
+                  </div>
+                </div>
+            </form>
+         </ul>
 
       </nav>
 
       <div class="tab-content">
         <div id="buscar" class="tab-pane">
-          <form class="navbar-form navbar-left">
-            <div class="form-group">
-              <div>
-                <input ng-model="serie" type="text" placeholder="Série..."></input>
-                <button ng-click="buscarSerie(serie)">
-                    <img class="minIcon" ng-src="img/search.png" data-placement="top"/>
-                </button>
-              </div>
-
-            </div>
-         </form>
+          
           <div class="imgContainer">
           <div class="gallery" ng-repeat="serie in series">
             <img class="serie-poster" src="{{serie.Poster}}">

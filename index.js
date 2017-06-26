@@ -4,11 +4,20 @@
         $scope.series = [];
         $scope.watchList = [];
         $scope.profile = [];
+        $scope.searchBar = false;
 
 
         $(document).ready(function(){
           $('[data-toggle="tooltip"]').tooltip();
         });
+
+        $scope.showSearchBar = function (){
+            $scope.searchBar = true;
+        };
+
+        $scope.hideSearchBar = function (){
+            $scope.searchBar = false;
+        };
 
         $scope.buscarSerie = function (serie) {
           var str = serie.replace(" ", "%20");
