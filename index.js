@@ -5,6 +5,7 @@
         $scope.watchList = [];
         $scope.profile = [];
         $scope.searchBar = false;
+        $scope.nenhumResultado = false;
 
 
         $(document).ready(function(){
@@ -20,15 +21,15 @@
         };
 
         $scope.buscarSerie = function (serie) {
-          var str = serie.replace(" ", "%20");
-          var url = "?s=".concat(str).concat("&apikey=93330d3c");
+          $scope.searchBarPristine = false;
+          var url = "?s=".concat(serie).concat("&apikey=93330d3c");
           delete $scope.serie;
           console.log(url);
           carregarFilmes(url);
         };
 
         $scope.adicionarProfile = function (serie) {
-            console.log("ädd");
+            console.log("add");
 
             if(existingSerie(serie)) {
                 alert("Serie já está registrada em seu perfil");
@@ -82,10 +83,20 @@
         };
 
         var carregarFilmes = function (url){
+          console.log("carregar filmes");
           var completeUrl = "https://omdbapi.com/".concat(url);
           $http.get(completeUrl).success( function (data) {
-            $scope.series = data.Search;
-            console.log($scope.series);
+            console.log(data.Error);
+            if (data.Error == "Movie not found!") {
+              $scope.nenhumResultado = true;
+            } else {
+              $scope.nenhumResultado = false;
+              $scope.series = data.Search;
+              console.log("sucesso");
+              console.log($scope.series);
+              
+            }
+            
 
           }).error(function (data) {
             console.log("erro");
