@@ -37,7 +37,7 @@
               <div>
                 <input ng-model="serie" type="text" placeholder="Série..."></input>
                 <button ng-click="buscarSerie(serie)">
-                    <img class="minIcon" ng-src="search.png" data-placement="top"/>
+                    <img class="minIcon" ng-src="img/search.png" data-placement="top"/>
                 </button>
               </div>
 
@@ -50,10 +50,10 @@
               <div class="text">{{serie.Title}}</div>
                 <div class="wrapper">
                   <button data-toggle="tooltip" data-placement="top" title="Adicionar ao perfil" ng-click="adicionarProfile(serie)">
-                    <img class="minIcon" ng-src="profile.png"/>
+                    <img class="minIcon" ng-src="img/profile.png"/>
                   </button>
                   <button data-toggle="tooltip" data-placement="top" title="Adicionar a Watch List" ng-click="adicionarWatch(serie)">
-                    <img class="minIcon" ng-src="monitor.png" data-placement="top"/>
+                    <img class="minIcon" ng-src="img/monitor.png" data-placement="top"/>
                   </button>
                 </div>
               </div>
@@ -70,10 +70,10 @@
               <div class="text">{{serie.Title}}</div>
                 <div class="wrapper">
                   <button data-toggle="tooltip" data-placement="top" title="Excluir do perfil" ng-click="excluirProfile(serie)">
-                    <img class="minIcon" ng-src="trash.png"/>
+                    <img class="minIcon" ng-src="img/trash.png"/>
                   </button>
                   <button data-toggle="modal" ng-click="printe()" data-target="#informacaoSerie{{$index}}">
-                    <img class="bigImage" class="minIcon" ng-src="more.png"/>
+                    <img class="bigImage" class="minIcon" ng-src="img/more.png"/>
                   </button>
                 </div>
               </div>
@@ -142,7 +142,7 @@
               <div class="text">{{serie.Title}}</div>
                 <div class="wrapper">
                   <button data-toggle="tooltip" data-placement="top" title="Adicionar ao perfil" ng-click="adicionarProfile(serie)">
-                    <img class="minIcon" ng-src="profile.png"/>
+                    <img class="minIcon" ng-src="img/profile.png"/>
                   </button>
                 </div>
               </div>
