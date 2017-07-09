@@ -1,0 +1,21 @@
+package com.Lab3SI.ws.service;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.Lab3SI.ws.model.Usuario;
+
+public class UsuarioService {
+	
+	private Map<String, Usuario> usuarios = new HashMap<>();
+	
+	public Usuario cadastrar(Usuario usuario) {
+		return this.usuarios.put(usuario.getEmail(), usuario);
+	}
+	
+	public Usuario buscar(String email) {
+		return this.usuarios.get(email);
+	}
+	
+
+}

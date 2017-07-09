@@ -3,7 +3,6 @@ package com.Lab3SI.ws.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,20 +13,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Lab3SI.ws.model.Usuario;
-import com.Lab3SI.ws.service.UsuarioService;
 
 @RestController
 public class ClientController {
 	
-	@Autowired
-	UsuarioService usuarioService;
+	private Map<String, Usuario> usuarios = new HashMap<>();
 	
-
+	private Usuario cadastrar(Usuario usuario) {
+		return this.usuarios.put(usuario.getEmail(), usuario);
+	}
+	
+	private Usuario buscar(String email) {
+		return this.usuarios.get(email);
+	}
+	
 	@RequestMapping(method=RequestMethod.POST, value="/usuario",
 					consumes=MediaType.APPLICATION_JSON_VALUE,
 					produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Usuario> cadastrarUsuario(@RequestBody Usuario usuario) {
-			Usuario usuarioCadastrado = usuarioService.cadastrar(usuario);
+			Usuario usuarioCadastrado = this.cadastrar(usuario);
 		
 		return new ResponseEntity<Usuario>(usuarioCadastrado, HttpStatus.CREATED);
 		
@@ -36,7 +40,7 @@ public class ClientController {
 	@RequestMapping(method=RequestMethod.GET, value="/usuario/{email}",
 			produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Usuario> buscarUsuario(@PathVariable String email) {
-		Usuario usuarioBuscado = usuarioService.buscar(email);
+		Usuario usuarioBuscado = this.buscar(email);
 		
 		if (usuarioBuscado == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

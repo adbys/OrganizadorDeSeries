@@ -27,7 +27,7 @@ public class ClientController {
 					consumes=MediaType.APPLICATION_JSON_VALUE,
 					produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Usuario> cadastrarUsuario(@RequestBody Usuario usuario) {
-			Usuario usuarioCadastrado = usuarioService.cadastrar(usuario);
+			Usuario usuarioCadastrado = this.cadastrar(usuario);
 		
 		return new ResponseEntity<Usuario>(usuarioCadastrado, HttpStatus.CREATED);
 		
@@ -36,7 +36,7 @@ public class ClientController {
 	@RequestMapping(method=RequestMethod.GET, value="/usuario/{email}",
 			produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Usuario> buscarUsuario(@PathVariable String email) {
-		Usuario usuarioBuscado = usuarioService.buscar(email);
+		Usuario usuarioBuscado = this.buscar(email);
 		
 		if (usuarioBuscado == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
