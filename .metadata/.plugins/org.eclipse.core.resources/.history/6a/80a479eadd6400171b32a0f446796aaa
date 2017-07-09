@@ -37,7 +37,7 @@ public class ClientController {
 		
 	}
 	
-	@RequestMapping(method=RequestMethod.GET, value="/usuario/{email}",
+	@RequestMapping(method=RequestMethod.GET, value="/usuario/{userName}",
 			produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Usuario> buscarUsuario(@PathVariable String email) {
 		Usuario usuarioBuscado = this.buscar(email);
