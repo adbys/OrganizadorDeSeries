@@ -1,0 +1,9 @@
+package com.Lab3SI.ws.model;
+
+public class Usuario {
+	
+	private String userName;
+	private String password;
+
+
+}
