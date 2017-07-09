@@ -15,10 +15,6 @@ public class Usuario {
 		return this.password;
 	}
 	
-	public String getEmail() {
-		return this.email;
-	}
-	
 	public void setPassword(String newPassword) {
 		this.password = newPassword;
 	}

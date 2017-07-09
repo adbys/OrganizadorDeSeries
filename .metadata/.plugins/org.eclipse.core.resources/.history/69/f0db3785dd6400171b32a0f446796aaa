@@ -20,11 +20,12 @@ public class ClientController {
 	private Map<String, Usuario> usuarios = new HashMap<>();
 	
 	private Usuario cadastrar(Usuario usuario) {
-		return this.usuarios.put(usuario.getEmail(), usuario);
+		return this.usuarios.put(usuario.getUserName(), usuario);
 	}
 	
-	private Usuario buscar(String email) {
-		return this.usuarios.get(email);
+	private Usuario buscar(String userName) {
+		System.out.println(userName);
+		return this.usuarios.get(userName);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/usuario",

@@ -15,7 +15,7 @@ public class Usuario {
 		return this.password;
 	}
 	
-	public String getEmail() {
+	public void getEmail() {
 		return this.email;
 	}
 	
