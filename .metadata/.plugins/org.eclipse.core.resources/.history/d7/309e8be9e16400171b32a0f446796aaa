@@ -1,0 +1,29 @@
+package com.Lab3SI.ws.service;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.Lab3SI.ws.bd.UsuarioBD;
+import com.Lab3SI.ws.model.Usuario;
+
+@Service
+public class UsuarioService {
+	
+	@Autowired
+	UsuarioBD usuarioBD;
+	
+	//private Map<String, Usuario> usuarios = new HashMap<>();
+	
+	public Usuario cadastrar(Usuario usuario) {
+		return usuarioBD.save(usuario);
+	}
+	
+	public Usuario buscar(String email) {
+		return this.usuarios.get(email);
+	}
+	
+
+}

@@ -6,11 +6,14 @@
         $scope.profile = [];
         $scope.searchBar = false;
         $scope.nenhumResultado = false;
+        $scope.showLoginPage = true;
+
 
 
         $(document).ready(function(){
           $('[data-toggle="tooltip"]').tooltip();
         });
+
 
         $scope.showSearchBar = function (){
             $scope.searchBar = true;
@@ -19,6 +22,49 @@
         $scope.hideSearchBar = function (){
             $scope.searchBar = false;
         };
+
+        $scope.doLogin = function () {
+          $scope.showLoginPage = false;
+          console.log($scope.loginUserName);
+          console.log($scope.loginPassword);
+        }
+
+        $scope.doLogout = function () {
+          $scope.showLoginPage = true;
+
+        }
+
+        $scope.ajax = function () {
+          var httpRequest = new XMLHttpRequest();
+          console.log("servidor");
+          httpRequest.open("GET", "http://localhost:8082/ajax", true);
+        //  httpRequest.setRequestHeader("Access-Control-Allow-Origin", "*");
+          httpRequest.send();
+      /*    $.ajax({
+          type : "GET",
+        processData:false,
+
+        crossDomain:true,
+        crossOrigin:true,
+        contentType:false,
+        //dataType: 'jsonp',                headers: { "Access-Control-Allow-Origin": "*",
+        'Access-Control-Allow-Methods': 'GET',
+        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+        },
+        header:{'Access-Control-Allow-Origin': '*'},
+        //header:("Access-Control-Allow-Methods: PUT, GET, POST"),
+        //header:("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept"),
+        url : "http://localhost:8082/ajax",
+        data: formData,
+        success : function(receivedData) {
+            console.log("SUCCESS: ");
+            alert(receivedData);
+
+            }
+
+});*/
+
+        }
 
         $scope.buscarSerie = function (serie) {
           $scope.searchBarPristine = false;
@@ -41,7 +87,7 @@
               console.log("Perfil");
               console.log($scope.profile);
             }
-            
+
 
         };
 
@@ -94,9 +140,9 @@
               $scope.series = data.Search;
               console.log("sucesso");
               console.log($scope.series);
-              
+
             }
-            
+
 
           }).error(function (data) {
             console.log("erro");

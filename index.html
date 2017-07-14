@@ -15,7 +15,7 @@
   </head>
   <body class="belowNavBar" ng-controller="organizadorDeSeriesCtrl">
 
-    <div class="container">
+      <div class="container" id="logged" ng-hide="showLoginPage">
 
       <nav class="navbar navbar-default">
         <div class="container-fluid">
@@ -27,7 +27,7 @@
             <li ng-click="hideSearchBar()"><a href="#watchList" data-toggle="tab">Watch List</a></li>
             <li ng-click="showSearchBar()"><a href="#buscar" data-toggle="tab">Buscar</a></li>
           </ul>
-          <ul ng-show="searchBar" class="nav navbar-nav navbar-left"">
+          <ul ng-show="searchBar" class="nav navbar-nav navbar-left">
               <form class="navbar-form ">
                 <div class="form-group">
                   <div>
@@ -35,9 +35,15 @@
                     <button ng-click="buscarSerie(serie)">
                         <img class="minIcon" ng-src="img/search.png" data-placement="top"/>
                     </button>
+                    <button ng-click="ajax()">
+                        AJAX
+                    </button>
                   </div>
                 </div>
             </form>
+         </ul>
+         <ul class="nav navbar-nav navbar-right">
+           <li ng-click="doLogout()"><a href="#"><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>
          </ul>
 
       </nav>
@@ -160,8 +166,128 @@
 
       </div>
 
+    </div>
+
+
+    <div class="container" id="login" ng-show="showLoginPage">
+      <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+          <div class="panel panel-info" >
+                  <div class="panel-heading">
+                      <div class="panel-title">Login</div>
+                  </div>
+
+                  <div style="padding-top:30px" class="panel-body" >
+
+                      <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+
+                      <form id="loginform" class="form-horizontal" role="form">
+
+                          <div style="margin-bottom: 25px" class="input-group">
+                                      <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                      <input id="login-username" ng-model="loginUserName" type="text" class="form-control" name="username" placeholder="Email">
+                                  </div>
+
+                          <div style="margin-bottom: 25px" class="input-group">
+                                      <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                      <input id="login-password" ng-model="loginPassword"  type="password" class="form-control" name="senha" placeholder="Senha">
+                          </div>
+
+                              <div style="margin-top:10px" class="form-group">
+                                  <!-- Button -->
+
+                                  <div class="col-sm-12 controls">
+                                    <a id="btn-login" ng-click="doLogin()" class="btn btn-success">Login  </a>
+
+                                  </div>
+                              </div>
+
+
+                              <div class="form-group">
+                                  <div class="col-md-12 control">
+                                      <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >
+                                          Ainda não possui uma conta?
+                                      <a href="#" onClick="$('#loginbox').hide(); $('#signupbox').show()">
+                                          Cadastre-se
+                                      </a>
+                                      </div>
+                                  </div>
+                              </div>
+                          </form>
+
+
+
+                      </div>
+                  </div>
+      </div>
+      <div id="signupbox" style="display:none; margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                  <div class="panel panel-info">
+                      <div class="panel-heading">
+                          <div class="panel-title">Cadastre-se</div>
+                          <div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" href="#" onclick="$('#signupbox').hide(); $('#loginbox').show()">Login</a></div>
+                      </div>
+                      <div class="panel-body" >
+                          <form id="signupform" class="form-horizontal" role="form">
+
+                              <div id="signupalert" style="display:none" class="alert alert-danger">
+                                  <p>Error:</p>
+                                  <span></span>
+                              </div>
+                              <div class="form-group">
+                                  <label for="email" class="col-md-3 control-label">Email</label>
+                                  <div class="col-md-9">
+                                      <input type="text" class="form-control" ng-model="emailUsuario" name="email" placeholder="Email">
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label for="firstname" class="col-md-3 control-label">Nome:</label>
+                                  <div class="col-md-9">
+                                      <input type="text" class="form-control" ng-model="nomeUsuario" name="name" placeholder="Nome">
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label for="password" class="col-md-3 control-label">Senha:</label>
+                                  <div class="col-md-9">
+                                      <input type="password" class="form-control" ng-model="senhaUsuario" name="passwd" placeholder="Senha">
+                                  </div>
+                              </div>
+
+
+                              <div class="form-group">
+                                  <!-- Button -->
+                                  <div class="col-md-offset-3 col-md-9">
+                                      <button id="btn-signup" type="button" class="btn btn-info"><i class="icon-hand-right"></i> Cadastrar</button>
+                                  </div>
+                              </div>
+                          </form>
+                       </div>
+                  </div>
+
+
 
 
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   </body>
 </html>
