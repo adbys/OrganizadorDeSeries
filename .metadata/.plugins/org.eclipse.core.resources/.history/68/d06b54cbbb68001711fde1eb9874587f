@@ -23,10 +23,9 @@ public class ClientController {
 //	@Autowired
 //	UsuarioService usuarioService;
     @CrossOrigin
-	@RequestMapping (method=RequestMethod.GET, value="/ajax", produces="application/json")
-	public Usuario print() {
+	@RequestMapping (method=RequestMethod.GET, value="/ajax")
+	public void print() {
 		System.out.println("chamou");
-		return new Usuario("teste", "teste", "teste");
 	}
 	
 

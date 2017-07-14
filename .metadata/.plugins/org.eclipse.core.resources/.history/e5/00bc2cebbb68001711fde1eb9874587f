@@ -24,9 +24,9 @@ public class ClientController {
 //	UsuarioService usuarioService;
     @CrossOrigin
 	@RequestMapping (method=RequestMethod.GET, value="/ajax", produces="application/json")
-	public Usuario print() {
+	public String print() {
 		System.out.println("chamou");
-		return new Usuario("teste", "teste", "teste");
+		return "Hello World";
 	}
 	
 

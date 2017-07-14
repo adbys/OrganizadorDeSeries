@@ -22,11 +22,10 @@ public class ClientController {
 	
 //	@Autowired
 //	UsuarioService usuarioService;
-    @CrossOrigin
-	@RequestMapping (method=RequestMethod.GET, value="/ajax", produces="application/json")
-	public Usuario print() {
+    @CrossOrigin(origins = "http://localhost:8082")
+	@RequestMapping (method=RequestMethod.GET, value="/ajax")
+	public void print() {
 		System.out.println("chamou");
-		return new Usuario("teste", "teste", "teste");
 	}
 	
 

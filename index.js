@@ -1,6 +1,19 @@
   angular.module("organizadorDeSeries", []);
       angular.module("organizadorDeSeries").controller("organizadorDeSeriesCtrl", function ($scope, $http){
 
+        /*function user = () {
+          this.nome;
+          this.email;
+          this.watchList = [];
+          this.profile = [];
+        }*/
+
+        var usuario = new Object();
+        usuario.nome = "";
+        usuario.email = "";
+        usuario.profile = [];
+        usuario.watchList = [];
+
         $scope.series = [];
         $scope.watchList = [];
         $scope.profile = [];
@@ -14,6 +27,16 @@
           $('[data-toggle="tooltip"]').tooltip();
         });
 
+        $scope.singUp = function() {
+          console.log($scope.nomeUsuario);
+          console.log($scope.senhaUsuario);
+          console.log($scope.emailUsuario);
+          alert("Usuário: " + $scope.nomeUsuario  + " cadastrado com sucesso!");
+          $scope.nomeUsuario="";
+          $scope.nomeUsuario="";
+          $scope.emailUsuario="";
+        }
+
 
         $scope.showSearchBar = function (){
             $scope.searchBar = true;
@@ -25,11 +48,13 @@
 
         $scope.doLogin = function () {
           $scope.showLoginPage = false;
+          usuario.nome = angular.copy($scope.loginUserName);
           console.log($scope.loginUserName);
           console.log($scope.loginPassword);
         }
 
         $scope.doLogout = function () {
+          console.log(usuario.nome);
           $scope.showLoginPage = true;
 
         }
@@ -37,33 +62,17 @@
         $scope.ajax = function () {
           var httpRequest = new XMLHttpRequest();
           console.log("servidor");
-          httpRequest.open("GET", "http://localhost:8082/ajax", true);
-        //  httpRequest.setRequestHeader("Access-Control-Allow-Origin", "*");
-          httpRequest.send();
-      /*    $.ajax({
-          type : "GET",
-        processData:false,
-
-        crossDomain:true,
-        crossOrigin:true,
-        contentType:false,
-        //dataType: 'jsonp',                headers: { "Access-Control-Allow-Origin": "*",
-        'Access-Control-Allow-Methods': 'GET',
-        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-        },
-        header:{'Access-Control-Allow-Origin': '*'},
-        //header:("Access-Control-Allow-Methods: PUT, GET, POST"),
-        //header:("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept"),
-        url : "http://localhost:8082/ajax",
-        data: formData,
-        success : function(receivedData) {
-            console.log("SUCCESS: ");
-            alert(receivedData);
-
+          httpRequest.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+              // Typical action to be performed when the document is ready:
+              console.log(httpRequest.responseText);
             }
 
-});*/
+          };
 
+          httpRequest.open("GET", "http://localhost:8082/ajax", true);
+      //    httpRequest.setRequestHeader("Access-Control-Allow-Origin", "*");
+          httpRequest.send();
         }
 
         $scope.buscarSerie = function (serie) {
@@ -82,10 +91,11 @@
             } else {
               getFullInformation(serie).success( function (data) {
               $scope.profile.push(angular.copy(data));
+              usuario.profile.push(angular.copy(data));
                 console.log(data);
               });
               console.log("Perfil");
-              console.log($scope.profile);
+              console.log(usuario.profile);
             }
 
 
@@ -94,6 +104,7 @@
         $scope.adicionarWatch = function (serie) {
           let position = $scope.watchList.indexOf(serie);
           $scope.watchList.push(angular.copy(serie));
+          usuario.watchList.push(angular.copy(serie))
           console.log("watchList")
           console.log($scope.watchList);
         };

@@ -26,7 +26,7 @@ public class ClientController {
 	@RequestMapping (method=RequestMethod.GET, value="/ajax", produces="application/json")
 	public Usuario print() {
 		System.out.println("chamou");
-		return new Usuario("teste", "teste", "teste");
+		return null;
 	}
 	
 
