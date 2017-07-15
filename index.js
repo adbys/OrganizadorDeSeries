@@ -28,13 +28,22 @@
         });
 
         $scope.singUp = function() {
-          console.log($scope.nomeUsuario);
-          console.log($scope.senhaUsuario);
-          console.log($scope.emailUsuario);
+          var userName = angular.copy($scope.nomeUsuario);
+          var senha = angular.copy($scope.senhaUsuario);
+          var email = angular.copy($scope.emailUsuario);
+          console.log("cadastrar");
+
+          var data = {"userName": userName, "email": email, "password": senha};
+
+          var promise = $http.post("http://localhost:8082/cadastrar", data).then(function(response) {
+            console.log(response);
+          });
+
+
           alert("Usuário: " + $scope.nomeUsuario  + " cadastrado com sucesso!");
-          $scope.nomeUsuario="";
-          $scope.nomeUsuario="";
-          $scope.emailUsuario="";
+          delete $scope.nomeUsuario;
+          delete $scope.senhaUsuario;
+          delete $scope.emailUsuario;
         }
 
 

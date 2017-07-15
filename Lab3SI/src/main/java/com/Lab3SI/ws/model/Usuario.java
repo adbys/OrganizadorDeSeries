@@ -1,15 +1,34 @@
 package com.Lab3SI.ws.model;
 
 
+import javax.persistence.*;
+
+
+@Entity(name = "Usuario")
+//@NamedQueries({  
+//    @NamedQuery(name = "emailQuery",
+//    		query = "select usr from tb_usuario usr where usr.email = :email"),
+  
+//})
+@Table(name = "tb_usuario")
 public class Usuario {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	@Column
 	private String userName;
+	@Column
 	private String email;
+	@Column
 	private String password;
-	
 	
 	public String getUserName() {
 		return this.userName;
+	}
+	
+	public Long getId() {
+		return this.id;
 	}
 	
 	public String getPassword() {

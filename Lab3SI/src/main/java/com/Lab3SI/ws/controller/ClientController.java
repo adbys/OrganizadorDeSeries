@@ -1,28 +1,23 @@
 package com.Lab3SI.ws.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.Lab3SI.ws.model.ObjetoTeste;
+import com.Lab3SI.ws.bd.UsuarioDAO;
 import com.Lab3SI.ws.model.Usuario;
-//import com.Lab3SI.ws.service.UsuarioService;
 
 @RestController
 public class ClientController {
 	
-//	@Autowired
-//	UsuarioService usuarioService;
+	@Autowired
+	UsuarioDAO usuarioDAO;
+	
+	
+
     @CrossOrigin
 	@RequestMapping (method=RequestMethod.GET, value="/ajax", produces="application/json")
 	public Usuario ajax() {
@@ -30,21 +25,21 @@ public class ClientController {
 		return new Usuario();
 	}
     
-    @CrossOrigin
+ /*   @CrossOrigin
 	@RequestMapping (method=RequestMethod.POST, value="/doLogin")
-	public Usuario doLogin(@RequestBody Usuario json) {
-    	System.out.println("login request");
-    	Usuario usuario = new Usuario();
-    	System.out.println(json.getEmail());
-    	if(json.getEmail().equalsIgnoreCase("teste")) {
-    		System.out.println("emailteste");
-    		usuario.setEmail("asdasdsa");
-    	}
-    	usuario.setPassword("teste1");
-    	usuario.setUserName("teste1");
+	public List<Usuario> doLogin(@RequestBody Usuario usuario) {
     	
-		return usuario;
-	}
+		return usuarioDAO.consultaObjeto(usuario.getEmail());
+	}*/
+    
+    @CrossOrigin
+ 	@RequestMapping (method=RequestMethod.POST, value="/cadastrar")
+ 	public Usuario cadastrarUsuario(@RequestBody Usuario usuario) {
+     	System.out.println("cadastro request");
+     	return usuarioDAO.salvarUsuario(usuario);
+     	
+ 	}
+
     
 
 /*	@RequestMapping(method=RequestMethod.POST, value="/usuario",

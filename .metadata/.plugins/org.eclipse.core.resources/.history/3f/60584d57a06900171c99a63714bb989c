@@ -1,0 +1,6 @@
+package com.Lab3SI.ws.bd;
+import com.Lab3SI.ws.model.Usuario;
+
+public class UsuarioRepository extends JPARepository<Usuario, Integer> {
+
+}

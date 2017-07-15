@@ -1,0 +1,45 @@
+package com.Lab3SI.ws.bd;
+
+import java.util.Optional;
+
+import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Repository;
+
+//import org.springframework.data.jpa.repository.JpaRepository;
+//import org.springframework.data.jpa.repository.Query;
+//import org.springframework.data.repository.query.Param;
+//import org.springframework.stereotype.Repository;
+
+import com.Lab3SI.ws.model.Usuario;
+
+@Repository
+@Transactional 
+@NamedQueries({  
+                @NamedQuery(name = "emailQuery", query = "select usr from Usuario usr where usr.id = :email"),  
+})  
+public class UsuarioDAO {
+
+	@PersistenceContext
+	private EntityManager em;
+	
+	public Usuario salvarUsuario(Usuario usuario) {
+	    em.persist(usuario);
+	    return usuario;
+	}
+	
+	public Usuario consultaObjeto(String email) {
+	    NamedQuery<Usuario> query = em.createNamedQuery("emailQuery");
+	    query.setParameter("email", email);
+	    return query.getSingleResult();
+	}
+
+
+	
+}

@@ -1,0 +1,43 @@
+package com.Lab3SI.ws.model;
+
+import javax.persistence.Column;
+
+import org.hibernate.annotations.Entity;
+import org.springframework.data.annotation.Id;
+
+@Entity
+public class Usuario {
+	@Column
+	private String userName;
+	@Id
+	private String email;
+	@Column
+	private String password;
+	
+	
+	public String getUserName() {
+		return this.userName;
+	}
+	
+	public String getPassword() {
+		return this.password;
+	}
+	
+	public String getEmail() {
+		return this.email;
+	}
+	
+	public void setPassword(String newPassword) {
+		this.password = newPassword;
+	}
+	
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+}
