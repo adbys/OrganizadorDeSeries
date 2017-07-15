@@ -1,0 +1,18 @@
+package com.Lab3SI.ws.model;
+
+public class ObjetoTeste {
+    private String nome;
+    private int quantidade;
+    
+    public String getNome() {
+        return nome;
+    }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    
+    public void getQuantidade() {
+    	return this.quantidade
+    }
+    /**/
+}

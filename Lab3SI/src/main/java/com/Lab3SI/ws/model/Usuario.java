@@ -7,12 +7,6 @@ public class Usuario {
 	private String email;
 	private String password;
 	
-	public Usuario(String nome, String email, String senha) {
-		this.email = email;
-		this.userName = nome;
-		this.password = senha;
-	}
-	
 	
 	public String getUserName() {
 		return this.userName;
@@ -28,6 +22,14 @@ public class Usuario {
 	
 	public void setPassword(String newPassword) {
 		this.password = newPassword;
+	}
+	
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 

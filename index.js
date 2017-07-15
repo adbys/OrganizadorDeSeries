@@ -47,8 +47,26 @@
         };
 
         $scope.doLogin = function () {
-          $scope.showLoginPage = false;
-          usuario.nome = angular.copy($scope.loginUserName);
+
+          var login = angular.copy($scope.loginUserName);
+          var password = angular.copy($scope.loginPassword);
+          var data = {"userName": "teste", "email": login, "password": password};
+          console.log("login request");
+          var promise = $http.post("http://localhost:8082/doLogin", data).then(function(response) {
+            console.log(response.data.email);
+            console.log(response.data.userName);
+            if (response.data.email == null){
+              delete $scope.loginUserName;
+              delete $scope.loginPassword;
+              alert("Usuário não cadastrado");
+            } else {
+              delete $scope.loginUserName;
+              delete $scope.loginPassword;
+              usuario = response.data;
+              console.log(usuario);
+              $scope.showLoginPage = false;
+            }
+          });
           console.log($scope.loginUserName);
           console.log($scope.loginPassword);
         }
@@ -56,23 +74,9 @@
         $scope.doLogout = function () {
           console.log(usuario.nome);
           $scope.showLoginPage = true;
+          usuario = new Object();
+          console.log(usuario);
 
-        }
-
-        $scope.ajax = function () {
-          var httpRequest = new XMLHttpRequest();
-          console.log("servidor");
-          httpRequest.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-              // Typical action to be performed when the document is ready:
-              console.log(httpRequest.responseText);
-            }
-
-          };
-
-          httpRequest.open("GET", "http://localhost:8082/ajax", true);
-      //    httpRequest.setRequestHeader("Access-Control-Allow-Origin", "*");
-          httpRequest.send();
         }
 
         $scope.buscarSerie = function (serie) {
