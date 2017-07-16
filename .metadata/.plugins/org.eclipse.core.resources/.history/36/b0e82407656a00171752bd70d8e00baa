@@ -16,10 +16,6 @@ import org.hibernate.annotations.NamedQuery;
 	@NamedQuery(
 	name = "findSerieProfileByIdUser",
 	query = "from serieProfile serieProfile where serieProfile.ownerId = :id"
-	),
-	@NamedQuery(
-	name = "findSerieProfileById",
-	query = "from serieProfile serieProfile where serieProfile.imdbId = :id"
 	)
 })
 @Entity(name = "serieProfile")

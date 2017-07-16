@@ -77,10 +77,10 @@ public class ClientController {
  	}
     
     @CrossOrigin
-  	@RequestMapping (method=RequestMethod.DELETE, value="/deleteProfile/{id}")
-  	public void deleteProfile(@PathVariable String id) {
+  	@RequestMapping (method=RequestMethod.POST, value="/deleteProfile/{id}")
+  	public SerieProfile deleteProfile(@PathVariable String id) {
       	System.out.println("excluirSerie");
-      	serieProfileDAO.exlcuirSerie(id);
+      	return serieProfileDAO.exlcuirSerie(id);
       	
   	}
 

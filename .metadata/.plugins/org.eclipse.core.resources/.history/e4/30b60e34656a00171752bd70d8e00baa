@@ -31,8 +31,7 @@ public class SerieProfileDAO {
 	}
 	
 	public void exlcuirSerie(String id) {
-		SerieProfile remover = this.buscarSeriePorID(id);
-		em.remove(remover);
+		em.remove(arg0);
 	}
 
 	public List<SerieProfile> getAllSeriesById(String id) {

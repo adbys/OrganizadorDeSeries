@@ -75,14 +75,6 @@ public class ClientController {
      	return serieProfileDAO.salvarSerie(serie);
      	
  	}
-    
-    @CrossOrigin
-  	@RequestMapping (method=RequestMethod.DELETE, value="/deleteProfile/{id}")
-  	public void deleteProfile(@PathVariable String id) {
-      	System.out.println("excluirSerie");
-      	serieProfileDAO.exlcuirSerie(id);
-      	
-  	}
 
     
 }

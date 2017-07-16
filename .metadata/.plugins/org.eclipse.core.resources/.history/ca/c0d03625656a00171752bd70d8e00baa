@@ -23,17 +23,6 @@ public class SerieProfileDAO {
 	    em.persist(serie);
 	    return serie;
 	}
-	
-	public SerieProfile buscarSeriePorID(String id) {
-		TypedQuery<SerieProfile> query = (TypedQuery<SerieProfile>) em.createNamedQuery("findSerieProfileById");
-	    query.setParameter("id", id);
-	    return query.getSingleResult();
-	}
-	
-	public void exlcuirSerie(String id) {
-		SerieProfile remover = this.buscarSeriePorID(id);
-		em.remove(remover);
-	}
 
 	public List<SerieProfile> getAllSeriesById(String id) {
 		TypedQuery<SerieProfile> query = (TypedQuery<SerieProfile>) em.createNamedQuery("findSerieProfileByIdUser");

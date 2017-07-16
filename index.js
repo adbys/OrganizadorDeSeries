@@ -163,6 +163,8 @@
           var excluir = confirm("Deseja excluir " + serie.Title + " do seu perfil?");
           if (excluir) {
             let position = $scope.profile.indexOf(serie);
+            var imdbId = serie.imdbID==null?serie.imdbId:serie.imdbID;
+            $http.delete("http://localhost:8082/deleteProfile/" + imdbId);
             $scope.profile.splice(position, 1);
           }
         };
