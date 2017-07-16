@@ -171,8 +171,20 @@
 
         $scope.salvarInformacoes = function (serie, episodio, classificacao) {
           console.log("salvar");
-          serie.classificacao = classificacao;
-          serie.episodio = episodio;
+          serie.classificacao = angular.copy(classificacao);
+          serie.episodio = angular.copy(episodio);
+          var seriePerfil = ({
+                      "ownerId": usuario.id,
+                       "poster": serie.Poster==null? serie.poster:serie.Poster,
+                       "imdbId": serie.imdbID==null? serie.imdbId:serie.imdbID,
+                       "title": serie.Title==null? serie.title:serie.Title,
+                        "plot": serie.Plot==null? serie.plot:serie.Plot,
+                        "rated": serie.Rated==null? serie.rated:serie.Rated,
+                        "imdbRating": serie.imdbRating,
+                        "classificacao": serie.classificacao,
+                        "episodio": serie.episodio
+          });
+          $http.put("http://localhost:8082/atualizarProfile", seriePerfil);
           delete $scope.episodio;
           delete $scope.classificacao;
         };
@@ -202,7 +214,8 @@
               console.log("existingSerie");
               for(i = 0; i < $scope.profile.length; i++) {
                 imdbId = serie.imdbID==null? serie.imdbId:serie.imdbID;
-                if(imdbId == $scope.profile[i].imdbID) {
+                scopeImdbId = $scope.profile[i].imdbID==null? $scope.profile[i].imdbId:$scope.profile[i].imdbID;
+                if(imdbId == scopeImdbId) {
                   return true;
                 }
               }

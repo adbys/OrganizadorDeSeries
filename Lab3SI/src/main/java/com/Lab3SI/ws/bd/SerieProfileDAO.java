@@ -41,4 +41,9 @@ public class SerieProfileDAO {
 	    return query.getResultList();
 	}
 
+	public void atualizarSerie(SerieProfile serie) {
+		this.exlcuirSerie(serie.getImdbId());
+		em.persist(serie);
+	}
+
 }

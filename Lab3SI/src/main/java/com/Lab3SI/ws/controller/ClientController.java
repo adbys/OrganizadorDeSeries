@@ -83,6 +83,15 @@ public class ClientController {
       	serieProfileDAO.exlcuirSerie(id);
       	
   	}
+    
+    @CrossOrigin
+  	@RequestMapping (method=RequestMethod.PUT, value="/atualizarProfile")
+  	public void atualizarProfile(@RequestBody SerieProfile serie) {
+      	System.out.println("atualizarSerie");
+      	System.out.println(serie.getClassificacao());
+      	serieProfileDAO.atualizarSerie(serie);
+      	
+  	}
 
     
 }
