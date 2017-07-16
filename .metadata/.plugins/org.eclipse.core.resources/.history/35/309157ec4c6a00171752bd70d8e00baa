@@ -1,0 +1,86 @@
+package com.Lab3SI.ws.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
+@NamedQueries({  
+	@NamedQuery(
+	name = "findSerieWatchListByIdUser",
+	query = "from serieWatch serieWatch where serieWatch.ownerId = :id"
+	)
+})
+@Entity(name = "serieWatch")
+@Table(name = "tb_serieWatch")
+public class SerieWatchList {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+	@Column
+	private String ownerId;
+	@Column
+	private String poster;
+	@Column
+	private String Title;
+	@Column
+	private String Type;
+	@Column
+	private String Year;
+	@Column
+	private String imdbID;
+	
+	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public String getOwnerId() {
+		return ownerId;
+	}
+	public void setOwnerId(String ownerId) {
+		this.ownerId = ownerId;
+	}
+	public String getPoster() {
+		return poster;
+	}
+	public void setPoster(String poster) {
+		this.poster = poster;
+	}
+	public String getTitle() {
+		return Title;
+	}
+	public void setTitle(String title) {
+		this.Title = title;
+	}
+	public String getType() {
+		return Type;
+	}
+	public void setType(String type) {
+		this.Type = type;
+	}
+	public String getYear() {
+		return Year;
+	}
+	public void setYear(String year) {
+		this.Year = year;
+	}
+	public String getImdbId() {
+		return imdbID;
+	}
+	public void setImdbId(String imdbId) {
+		this.imdbID = imdbId;
+	}
+	
+	
+	
+
+}

@@ -1,0 +1,35 @@
+package com.Lab3SI.ws.bd;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.Lab3SI.ws.model.SerieWatchList;
+
+@Repository
+@Transactional
+public class SerieWatchDAO {
+	
+	@PersistenceContext
+	private EntityManager em;
+	
+	public SerieWatchList salvarSerie(SerieWatchList serie) {
+	    em.persist(serie);
+	    return serie;
+	}
+
+	public List<SerieWatchList> getAllSeriesById(String id) {
+		TypedQuery<SerieWatchList> query = (TypedQuery<SerieWatchList>) em.createNamedQuery("findSerieWatchListByIdUser");
+	    query.setParameter("id", id);
+	    return query.getResultList();
+	}
+	
+
+
+
+}

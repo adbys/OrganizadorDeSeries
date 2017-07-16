@@ -1,18 +1,7 @@
   angular.module("organizadorDeSeries", []);
       angular.module("organizadorDeSeries").controller("organizadorDeSeriesCtrl", function ($scope, $http){
 
-        /*function user = () {
-          this.nome;
-          this.email;
-          this.watchList = [];
-          this.profile = [];
-        }*/
-
         var usuario = new Object();
-        usuario.nome = "";
-        usuario.email = "";
-        usuario.profile = [];
-        usuario.watchList = [];
 
         $scope.series = [];
         $scope.watchList = [];
@@ -74,6 +63,7 @@
                 delete $scope.loginUserName;
                 delete $scope.loginPassword;
                 usuario = response.data;
+                loadAllWatchSeries();
                 console.log(usuario);
                 $scope.showLoginPage = false;
               } else {
@@ -89,10 +79,23 @@
         }
 
         $scope.doLogout = function () {
-          console.log(usuario.nome);
-          $scope.showLoginPage = true;
           usuario = new Object();
-          console.log(usuario);
+
+          $scope.showLoginPage = true;
+          $scope.series = [];
+          $scope.watchList = [];
+          $scope.profile = [];
+          $scope.searchBar = false;
+          $scope.nenhumResultado = false;
+          console.log(document.getElementById("profile"));
+          document.getElementById("profile").className = "tab-pane in active";
+          console.log(document.getElementById("profile"));
+          document.getElementById("watchList").className = "tab-pane";
+          document.getElementById("buscar").className = "tab-pane";
+          document.getElementById("profileButton").className = "active";
+          document.getElementById("watchButton").className = "";
+          document.getElementById("buscarButton").className = "";
+
 
         }
 
@@ -125,9 +128,21 @@
         $scope.adicionarWatch = function (serie) {
           let position = $scope.watchList.indexOf(serie);
           $scope.watchList.push(angular.copy(serie));
-          usuario.watchList.push(angular.copy(serie))
           console.log("watchList")
           console.log($scope.watchList);
+          serie.ownerId = usuario.id;
+          var data = ({"ownerId": usuario.id,
+                       "poster": serie.Poster,
+                        "title": serie.Title,
+                        "type": serie.Type,
+                        "year": serie.Year,
+                        "imdbId": serie.imdbID
+                      });
+          console.log(serie);
+          console.log(data);
+          var promise = $http.post("http://localhost:8082/saveWatch", data).then(function(response) {
+            console.log(response);
+          });
         };
 
         $scope.excluirProfile = function (serie) {
@@ -145,6 +160,14 @@
           delete $scope.episodio;
           delete $scope.classificacao;
         };
+
+        var loadAllWatchSeries = function() {
+          var promise = $http.get('http://localhost:8082/getWatchSeries/' + usuario.id).then(function(response) {
+            console.log("NovaWatch");
+            $scope.watchList = response.data;
+            console.log($scope.watchList);
+          });
+        }
 
         var getFullInformation = function(serie) {
           return $http.get('https://omdbapi.com/?i=' + serie.imdbID + '&plot=full&apikey=93330d3c');

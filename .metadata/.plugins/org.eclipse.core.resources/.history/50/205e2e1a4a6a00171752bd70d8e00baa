@@ -1,0 +1,36 @@
+package com.Lab3SI.ws.bd;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.Lab3SI.ws.model.SerieWatchList;
+import com.Lab3SI.ws.model.Usuario;
+
+@Repository
+@Transactional
+public class SerieWatchDAO {
+	
+	@PersistenceContext
+	private EntityManager em;
+	
+	public SerieWatchList salvarSerie(SerieWatchList serie) {
+	    em.persist(serie);
+	    return serie;
+	}
+
+	public List<SerieWatchList> getAllSeriesById(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+//	public Usuario consultaUsuario(String email) {
+//	    TypedQuery<Usuario> query = (TypedQuery<Usuario>) em.createNamedQuery("findUserByEmail");
+//	    query.setParameter("email", email);
+//	    return query.getSingleResult();
+//	}
+
+
+}

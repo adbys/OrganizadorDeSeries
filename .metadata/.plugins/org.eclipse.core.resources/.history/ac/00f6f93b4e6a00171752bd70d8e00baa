@@ -59,6 +59,7 @@ public class ClientController {
  	@RequestMapping (method=RequestMethod.POST, value="/saveWatch")
  	public SerieWatchList saveWatch(@RequestBody SerieWatchList serie) {
      	System.out.println("salvarSerie");
+     	System.out.println(serie.getImdbId());
      	return serieWatchDAO.salvarSerie(serie);
      	
  	}

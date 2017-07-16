@@ -34,7 +34,7 @@ public class ClientController {
     
     @CrossOrigin
 	@RequestMapping (method=RequestMethod.GET, value="/getWatchSeries/{id}", produces="application/json")
-	public List<SerieWatchList> getWatchSeriesById(@PathVariable String id) {
+	public Usuario getWatchSeriesById(@PathVariable String id) {
 		System.out.println("get watch series");
 		return serieWatchDAO.getAllSeriesById(id);
 	}
@@ -59,6 +59,7 @@ public class ClientController {
  	@RequestMapping (method=RequestMethod.POST, value="/saveWatch")
  	public SerieWatchList saveWatch(@RequestBody SerieWatchList serie) {
      	System.out.println("salvarSerie");
+     	System.out.println(serie);
      	return serieWatchDAO.salvarSerie(serie);
      	
  	}

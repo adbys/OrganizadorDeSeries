@@ -4,15 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.Lab3SI.ws.bd.SerieWatchDAO;
 import com.Lab3SI.ws.bd.UsuarioDAO;
-import com.Lab3SI.ws.model.SerieWatchList;
 import com.Lab3SI.ws.model.Usuario;
 
 @RestController
@@ -20,8 +17,6 @@ public class ClientController {
 	
 	@Autowired
 	UsuarioDAO usuarioDAO;
-	@Autowired
-	SerieWatchDAO serieWatchDAO;
 	
 	
 
@@ -30,13 +25,6 @@ public class ClientController {
 	public Usuario ajax() {
 		System.out.println("chamou");
 		return new Usuario();
-	}
-    
-    @CrossOrigin
-	@RequestMapping (method=RequestMethod.GET, value="/getWatchSeries/{id}", produces="application/json")
-	public List<SerieWatchList> getWatchSeriesById(@PathVariable String id) {
-		System.out.println("get watch series");
-		return serieWatchDAO.getAllSeriesById(id);
 	}
     
     @CrossOrigin
@@ -52,14 +40,6 @@ public class ClientController {
  	public Usuario cadastrarUsuario(@RequestBody Usuario usuario) {
      	System.out.println("cadastro request");
      	return usuarioDAO.salvarUsuario(usuario);
-     	
- 	}
-    
-    @CrossOrigin
- 	@RequestMapping (method=RequestMethod.POST, value="/saveWatch")
- 	public SerieWatchList saveWatch(@RequestBody SerieWatchList serie) {
-     	System.out.println("salvarSerie");
-     	return serieWatchDAO.salvarSerie(serie);
      	
  	}
 
