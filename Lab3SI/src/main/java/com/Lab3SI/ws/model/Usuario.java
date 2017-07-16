@@ -1,15 +1,22 @@
 package com.Lab3SI.ws.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import javax.persistence.*;
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 
-
-@Entity(name = "Usuario")
-//@NamedQueries({  
-//    @NamedQuery(name = "emailQuery",
-//    		query = "select usr from tb_usuario usr where usr.email = :email"),
-  
-//})
+@NamedQueries({  
+	@NamedQuery(
+	name = "findUserByEmail",
+	query = "from usuario usr where usr.email = :email"
+	)
+})
+@Entity(name = "usuario")
 @Table(name = "tb_usuario")
 public class Usuario {
 	

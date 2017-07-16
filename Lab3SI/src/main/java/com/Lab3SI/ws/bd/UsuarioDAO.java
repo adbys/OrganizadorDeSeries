@@ -1,7 +1,10 @@
 package com.Lab3SI.ws.bd;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,12 +28,11 @@ public class UsuarioDAO {
 	    return usuario;
 	}
 	
-/*	public List<Usuario> consultaObjeto(String email) {
-	    TypedQuery<Usuario> query = (TypedQuery<Usuario>) em.createNamedQuery("emailQuery");
+	public Usuario consultaUsuario(String email) {
+	    TypedQuery<Usuario> query = (TypedQuery<Usuario>) em.createNamedQuery("findUserByEmail");
 	    query.setParameter("email", email);
-	    System.out.println(query.getFirstResult());
-	    return query.getResultList();
-	}*/
+	    return query.getSingleResult();
+	}
 
 
 	

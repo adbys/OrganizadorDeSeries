@@ -1,5 +1,7 @@
 package com.Lab3SI.ws.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,12 +27,13 @@ public class ClientController {
 		return new Usuario();
 	}
     
- /*   @CrossOrigin
+    @CrossOrigin
 	@RequestMapping (method=RequestMethod.POST, value="/doLogin")
-	public List<Usuario> doLogin(@RequestBody Usuario usuario) {
-    	
-		return usuarioDAO.consultaObjeto(usuario.getEmail());
-	}*/
+	public Usuario doLogin(@RequestBody Usuario usuario) {
+    	Usuario retorno =  usuarioDAO.consultaUsuario((String) usuario.getEmail());
+    	System.out.println(retorno);
+		return retorno;
+	}
     
     @CrossOrigin
  	@RequestMapping (method=RequestMethod.POST, value="/cadastrar")

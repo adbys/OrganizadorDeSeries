@@ -64,16 +64,24 @@
           var promise = $http.post("http://localhost:8082/doLogin", data).then(function(response) {
             console.log(response.data.email);
             console.log(response.data.userName);
+            console.log(response);
             if (response.data.email == null){
               delete $scope.loginUserName;
               delete $scope.loginPassword;
               alert("Usuário não cadastrado");
             } else {
-              delete $scope.loginUserName;
-              delete $scope.loginPassword;
-              usuario = response.data;
-              console.log(usuario);
-              $scope.showLoginPage = false;
+              if (response.data.password == password) {
+                delete $scope.loginUserName;
+                delete $scope.loginPassword;
+                usuario = response.data;
+                console.log(usuario);
+                $scope.showLoginPage = false;
+              } else {
+                delete $scope.loginUserName;
+                delete $scope.loginPassword;
+                alert("Senha incorreta!");
+              }
+
             }
           });
           console.log($scope.loginUserName);
