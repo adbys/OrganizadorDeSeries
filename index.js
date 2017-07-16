@@ -64,6 +64,7 @@
                 delete $scope.loginPassword;
                 usuario = response.data;
                 loadAllWatchSeries();
+                loadAllProfileSeries();
                 console.log(usuario);
                 $scope.showLoginPage = false;
               } else {
@@ -108,18 +109,32 @@
         };
 
         $scope.adicionarProfile = function (serie) {
-            console.log("add");
+            console.log("addProfile");
 
             if(existingSerie(serie)) {
                 alert("Serie já está registrada em seu perfil");
             } else {
               getFullInformation(serie).success( function (data) {
               $scope.profile.push(angular.copy(data));
-              usuario.profile.push(angular.copy(data));
-                console.log(data);
+              var seriePerfil = ({
+                          "ownerId": usuario.id,
+                           "poster": data.Poster,
+                           "imdbId": data.imdbID,
+                           "title": data.Title,
+                            "plot": data.Plot,
+                            "rated": data.Rated,
+                            "imdbRating": data.imdbRating,
+                            "classificacao": data.classificacao,
+                            "episodio": data.episodio
+                          });
+              console.log("adicionar ao perfil");
+              console.log(seriePerfil);
+              var promise = $http.post("http://localhost:8082/saveProfile", seriePerfil).then(function(response) {
+                console.log(response);
+              });
+              console.log(data);
               });
               console.log("Perfil");
-              console.log(usuario.profile);
             }
 
 
@@ -130,7 +145,6 @@
           $scope.watchList.push(angular.copy(serie));
           console.log("watchList")
           console.log($scope.watchList);
-          serie.ownerId = usuario.id;
           var data = ({"ownerId": usuario.id,
                        "poster": serie.Poster,
                         "title": serie.Title,
@@ -169,14 +183,24 @@
           });
         }
 
+        var loadAllProfileSeries = function() {
+          var promise = $http.get('http://localhost:8082/getProfileSeries/' + usuario.id).then(function(response) {
+            console.log("NovaProfile");
+            $scope.profile = response.data;
+            console.log($scope.profile);
+          });
+        }
+
         var getFullInformation = function(serie) {
-          return $http.get('https://omdbapi.com/?i=' + serie.imdbID + '&plot=full&apikey=93330d3c');
+          var imdbID = serie.imdbID==null? serie.imdbId:serie.imdbID;
+          return $http.get('https://omdbapi.com/?i=' + imdbID + '&plot=full&apikey=93330d3c');
         }
 
         var existingSerie = function(serie) {
               console.log("existingSerie");
               for(i = 0; i < $scope.profile.length; i++) {
-                if(serie.imdbID == $scope.profile[i].imdbID) {
+                imdbId = serie.imdbID==null? serie.imdbId:serie.imdbID;
+                if(imdbId == $scope.profile[i].imdbID) {
                   return true;
                 }
               }

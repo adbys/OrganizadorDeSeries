@@ -71,7 +71,6 @@ public class ClientController {
  	@RequestMapping (method=RequestMethod.POST, value="/saveProfile")
  	public SerieProfile saveProfile(@RequestBody SerieProfile serie) {
      	System.out.println("salvarSerie");
-     	System.out.println(serie.getPlot());
      	return serieProfileDAO.salvarSerie(serie);
      	
  	}
