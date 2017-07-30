@@ -20,14 +20,15 @@ import org.hibernate.annotations.NamedQuery;
 @Table(name = "tb_usuario")
 public class Usuario {
 	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column
+	@Column(name="user_name")
 	private String userName;
-	@Column
+	@Column(name="email")
 	private String email;
-	@Column
+	@Column(name="password")
 	private String password;
 	
 	public String getUserName() {
@@ -36,6 +37,10 @@ public class Usuario {
 	
 	public Long getId() {
 		return this.id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	public String getPassword() {

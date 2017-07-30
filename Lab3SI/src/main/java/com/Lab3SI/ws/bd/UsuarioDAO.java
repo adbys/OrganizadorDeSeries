@@ -24,13 +24,16 @@ public class UsuarioDAO {
 	private EntityManager em;
 	
 	public Usuario salvarUsuario(Usuario usuario) {
-	    em.persist(usuario);
-	    return usuario;
+		System.out.println(usuario.getId());
+		em.persist(usuario);
+		System.out.println(usuario.getId());
+		return usuario;
 	}
 	
 	public Usuario consultaUsuario(String email) {
 	    TypedQuery<Usuario> query = (TypedQuery<Usuario>) em.createNamedQuery("findUserByEmail");
 	    query.setParameter("email", email);
+	    System.out.println(query.getFirstResult());
 	    return query.getSingleResult();
 	}
 
