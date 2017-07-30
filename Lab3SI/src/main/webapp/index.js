@@ -24,7 +24,7 @@
 
           var data = {"userName": userName, "email": email, "password": senha};
 
-          var promise = $http.post("http://localhost:8082/cadastrar", data).then(function(response) {
+          var promise = $http.post("/cadastrar", data).then(function(response) {
             console.log(response);
           });
 
@@ -50,7 +50,7 @@
           var password = angular.copy($scope.loginPassword);
           var data = {"userName": "teste", "email": login, "password": password};
           console.log("login request");
-          var promise = $http.post("http://localhost:8082/doLogin", data).then(function(response) {
+          var promise = $http.post("/doLogin", data).then(function(response) {
             console.log(response.data.email);
             console.log(response.data.userName);
             console.log(response);
@@ -129,7 +129,7 @@
                           });
               console.log("adicionar ao perfil");
               console.log(seriePerfil);
-              var promise = $http.post("http://localhost:8082/saveProfile", seriePerfil).then(function(response) {
+              var promise = $http.post("/saveProfile", seriePerfil).then(function(response) {
                 console.log(response);
               });
               console.log(data);
@@ -154,7 +154,7 @@
                       });
           console.log(serie);
           console.log(data);
-          var promise = $http.post("http://localhost:8082/saveWatch", data).then(function(response) {
+          var promise = $http.post("/saveWatch", data).then(function(response) {
             console.log(response);
           });
         };
@@ -164,7 +164,7 @@
           if (excluir) {
             let position = $scope.profile.indexOf(serie);
             var imdbId = serie.imdbID==null?serie.imdbId:serie.imdbID;
-            $http.delete("http://localhost:8082/deleteProfile/" + imdbId);
+            $http.delete("/deleteProfile/" + imdbId);
             $scope.profile.splice(position, 1);
           }
         };
@@ -184,13 +184,13 @@
                         "classificacao": serie.classificacao,
                         "episodio": serie.episodio
           });
-          $http.put("http://localhost:8082/atualizarProfile", seriePerfil);
+          $http.put("/atualizarProfile", seriePerfil);
           delete $scope.episodio;
           delete $scope.classificacao;
         };
 
         var loadAllWatchSeries = function() {
-          var promise = $http.get('http://localhost:8082/getWatchSeries/' + usuario.id).then(function(response) {
+          var promise = $http.get('/getWatchSeries/' + usuario.id).then(function(response) {
             console.log("NovaWatch");
             $scope.watchList = response.data;
             console.log($scope.watchList);
@@ -198,7 +198,7 @@
         }
 
         var loadAllProfileSeries = function() {
-          var promise = $http.get('http://localhost:8082/getProfileSeries/' + usuario.id).then(function(response) {
+          var promise = $http.get('/getProfileSeries/' + usuario.id).then(function(response) {
             console.log("NovaProfile");
             $scope.profile = response.data;
             console.log($scope.profile);
