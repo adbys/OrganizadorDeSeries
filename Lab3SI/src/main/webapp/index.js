@@ -51,6 +51,7 @@
           var data = {"userName": "teste", "email": login, "password": password};
           console.log("login request");
           var promise = $http.post("/doLogin", data).then(function(response) {
+            console.log("resposta");
             console.log(response.data.email);
             console.log(response.data.userName);
             console.log(response);
